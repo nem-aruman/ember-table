@@ -106,3 +106,34 @@ Ember.Table.RegisterTableComponentMixin = Ember.Mixin.create
     unless @get('tableComponent')
       @set('tableComponent', @nearestWithProperty('isEmberTable'))
     @_super()
+
+
+# A mixin to enable soring in ember tables by clicking on the header of columns
+# The user can define a compare values method for each column to determine how the values are sorted
+Ember.Table.SimpleSortMixin = Ember.Mixin.create
+  sortColumn: null
+  descending: false
+
+  performSort: (->
+    sortColumn = @get('sortColumn')
+    return unless sortColumn?
+    content = @get('content')
+    descending = @get('descending')
+    newContent = content.sort (a,b) ->
+      if descending
+        sortColumn.compareCellValues b, a
+      else
+        sortColumn.compareCellValues a, b
+    newContent = newContent.slice 0
+    @set('content', newContent)
+    return
+  ).observes('sortColumn', 'descending')
+
+  actions:
+    sortByColumn : (column) ->
+      if column is @get('sortColumn')
+        @toggleProperty('descending')
+      else if column.get 'isSortable'
+        @setProperties({'sortColumn': column, 'descending' : false})
+      return
+

@@ -29,7 +29,7 @@ Ember.Table.ColumnDefinition = Ember.Object.extend
   # Whether the column can be rearranged with other columns. Only matters if
   # the table's `enableColumnReorder` property is set to true (the default).
   # TODO(new-api): Rename to `isReorderable`
-  isSortable:  yes
+  isSortable:  no
 
   # Alignment of the text in the cell. Possible values are "left", "center",
   # and "right".
@@ -55,6 +55,22 @@ Ember.Table.ColumnDefinition = Ember.Object.extend
     Ember.assert "You must either provide a contentPath or override " +
       "getCellContent in your column definition", path?
     Ember.get row, path
+
+  ###*
+  * Compare Cell Values - Compare the value of two cells, used for sorting
+  * @memberof Ember.Table.ColumnDefinition
+  * @instance
+  * @argument firstRow {Ember.Table.Row}
+  * @argument secondRow {Ember.Table.Row}
+  ###
+  compareCellValues: (firstRow, secondRow) ->
+    path = @get 'contentPath'
+    Ember.assert "You must either provide a contentPath or override " +
+      "compareCellValues in your column definition", path?
+    if firstRow.get?  #Assuming both rows are either ember objects or both are not
+      return firstRow.get path - secondRow.get path
+    else
+      return firstRow[path] - secondRow[path]
 
   # Override to maintain a consistent path to update cell values.
   # Recommended to make this a function which takes (row, value) and updates

@@ -1129,6 +1129,41 @@ Ember.Table.RegisterTableComponentMixin = Ember.Mixin.create({
   }
 });
 
+Ember.Table.SimpleSortMixin = Ember.Mixin.create({
+  sortColumn: null,
+  descending: false,
+  performSort: (function() {
+    var content, descending, newContent, sortColumn;
+    sortColumn = this.get('sortColumn');
+    if (sortColumn == null) {
+      return;
+    }
+    content = this.get('content');
+    descending = this.get('descending');
+    newContent = content.sort(function(a, b) {
+      if (descending) {
+        return sortColumn.compareCellValues(b, a);
+      } else {
+        return sortColumn.compareCellValues(a, b);
+      }
+    });
+    newContent = newContent.slice(0);
+    this.set('content', newContent);
+  }).observes('sortColumn', 'descending'),
+  actions: {
+    sortByColumn: function(column) {
+      if (column === this.get('sortColumn')) {
+        this.toggleProperty('descending');
+      } else if (column.get('isSortable')) {
+        this.setProperties({
+          'sortColumn': column,
+          'descending': false
+        });
+      }
+    }
+  }
+});
+
 
 })();
 (function() {
@@ -1141,7 +1176,7 @@ Ember.Table.ColumnDefinition = Ember.Object.extend({
   maxWidth: void 0,
   savedWidth: 150,
   isResizable: true,
-  isSortable: true,
+  isSortable: false,
   textAlign: 'text-align-right',
   canAutoResize: false,
   headerCellView: 'Ember.Table.HeaderCell',
@@ -1153,6 +1188,24 @@ Ember.Table.ColumnDefinition = Ember.Object.extend({
     path = this.get('contentPath');
     Ember.assert("You must either provide a contentPath or override " + "getCellContent in your column definition", path != null);
     return Ember.get(row, path);
+  },
+  /**
+  * Compare Cell Values - Compare the value of two cells, used for sorting
+  * @memberof Ember.Table.ColumnDefinition
+  * @instance
+  * @argument firstRow {Ember.Table.Row}
+  * @argument secondRow {Ember.Table.Row}
+  */
+
+  compareCellValues: function(firstRow, secondRow) {
+    var path;
+    path = this.get('contentPath');
+    Ember.assert("You must either provide a contentPath or override " + "compareCellValues in your column definition", path != null);
+    if (firstRow.get != null) {
+      return firstRow.get(path - secondRow.get(path));
+    } else {
+      return firstRow[path] - secondRow[path];
+    }
   },
   setCellContent: Ember.K,
   width: Ember.computed.oneWay('savedWidth'),
@@ -1607,7 +1660,7 @@ Ember.Table.ScrollPanel = Ember.View.extend(Ember.AddeparMixins.StyleBindingsMix
 (function() {
 
 
-Ember.Table.EmberTableComponent = Ember.Component.extend(Ember.AddeparMixins.StyleBindingsMixin, Ember.AddeparMixins.ResizeHandlerMixin, {
+Ember.Table.EmberTableComponent = Ember.Component.extend(Ember.AddeparMixins.StyleBindingsMixin, Ember.AddeparMixins.ResizeHandlerMixin, Ember.Table.SimpleSortMixin, {
   layoutName: 'components/ember-table',
   classNames: ['ember-table-tables-container'],
   classNameBindings: ['enableContentSelection:ember-table-content-selectable'],
@@ -1665,8 +1718,7 @@ Ember.Table.EmberTableComponent = Ember.Component.extend(Ember.AddeparMixins.Sty
     return this.prepareTableColumns();
   },
   actions: {
-    addColumn: Ember.K,
-    sortByColumn: Ember.K
+    addColumn: Ember.K
   },
   height: Ember.computed.alias('_tablesContainerHeight'),
   tableRowView: 'Ember.Table.TableRow',

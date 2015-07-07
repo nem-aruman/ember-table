@@ -1,6 +1,8 @@
 Ember.Table.EmberTableComponent =
 Ember.Component.extend Ember.AddeparMixins.StyleBindingsMixin,
 Ember.AddeparMixins.ResizeHandlerMixin,
+Ember.Table.SimpleSortMixin,
+
   layoutName: 'components/ember-table'
   classNames: ['ember-table-tables-container']
   classNameBindings: ['enableContentSelection:ember-table-content-selectable']
@@ -113,7 +115,7 @@ Ember.AddeparMixins.ResizeHandlerMixin,
   # TODO: Document
   actions:
     addColumn: Ember.K
-    sortByColumn: Ember.K
+    #sortByColumn: Ember.K
 
   height: Ember.computed.alias '_tablesContainerHeight'
 
