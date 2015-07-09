@@ -50,7 +50,7 @@ Ember.TEMPLATES["body-container"] = Ember.HTMLBars.template((function() {
           fragment = this.build(dom);
         }
         var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-        inline(env, morph0, context, "view", [get(env, context, "Ember.Table.LazyTableBlock")], {"classNames": "ember-table-left-table-block", "contentBinding": "controller.bodyContent", "columnsBinding": "controller.fixedColumns", "widthBinding": "controller._fixedBlockWidth", "numItemsShowingBinding": "controller._numItemsShowing", "scrollTopBinding": "controller._scrollTop", "startIndexBinding": "controller._startIndex"});
+        inline(env, morph0, context, "view", [get(env, context, "Ember.Table.LazyTableBlock")], {"classNames": "ember-table-left-table-block", "content": get(env, context, "bodyContent"), "columns": get(env, context, "fixedColumns"), "width": get(env, context, "_fixedBlockWidth"), "numItemsShowing": get(env, context, "_numItemsShowing"), "scrollTop": get(env, context, "_scrollTop"), "startIndex": get(env, context, "_startIndex")});
         return fragment;
       }
     };
@@ -116,7 +116,7 @@ Ember.TEMPLATES["body-container"] = Ember.HTMLBars.template((function() {
       var morph0 = dom.createMorphAt(element0,1,1);
       var morph1 = dom.createMorphAt(element0,3,3);
       block(env, morph0, context, "if", [get(env, context, "controller.numFixedColumns")], {}, child0, null);
-      inline(env, morph1, context, "view", [get(env, context, "Ember.Table.LazyTableBlock")], {"classNames": "ember-table-right-table-block", "contentBinding": "controller.bodyContent", "columnsBinding": "controller.tableColumns", "scrollLeftBinding": "controller._tableScrollLeft", "widthBinding": "controller._tableBlockWidth", "numItemsShowingBinding": "controller._numItemsShowing", "scrollTopBinding": "controller._scrollTop", "startIndexBinding": "controller._startIndex"});
+      inline(env, morph1, context, "view", [get(env, context, "Ember.Table.LazyTableBlock")], {"classNames": "ember-table-right-table-block", "content": get(env, context, "bodyContent"), "columns": get(env, context, "tableColumns"), "scrollLeft": get(env, context, "_tableScrollLeft"), "width": get(env, context, "_tableBlockWidth"), "numItemsShowing": get(env, context, "_numItemsShowing"), "scrollTop": get(env, context, "_scrollTop"), "startIndex": get(env, context, "_startIndex")});
       return fragment;
     }
   };
@@ -142,7 +142,7 @@ Ember.TEMPLATES["components/ember-table"] = Ember.HTMLBars.template((function() 
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, get = hooks.get, inline = hooks.inline;
+        var hooks = env.hooks, inline = hooks.inline;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -161,7 +161,7 @@ Ember.TEMPLATES["components/ember-table"] = Ember.HTMLBars.template((function() 
           fragment = this.build(dom);
         }
         var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-        inline(env, morph0, context, "view", [get(env, context, "Ember.Table.HeaderTableContainer")], {});
+        inline(env, morph0, context, "view", ["Ember.Table.HeaderTableContainer"], {});
         return fragment;
       }
     };
@@ -185,7 +185,7 @@ Ember.TEMPLATES["components/ember-table"] = Ember.HTMLBars.template((function() 
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, get = hooks.get, inline = hooks.inline;
+        var hooks = env.hooks, inline = hooks.inline;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -204,7 +204,7 @@ Ember.TEMPLATES["components/ember-table"] = Ember.HTMLBars.template((function() 
           fragment = this.build(dom);
         }
         var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-        inline(env, morph0, context, "view", [get(env, context, "Ember.Table.FooterTableContainer")], {});
+        inline(env, morph0, context, "view", ["Ember.Table.FooterTableContainer"], {});
         return fragment;
       }
     };
@@ -262,10 +262,10 @@ Ember.TEMPLATES["components/ember-table"] = Ember.HTMLBars.template((function() 
       var morph4 = dom.createMorphAt(fragment,6,6,contextualElement);
       dom.insertBoundary(fragment, 0);
       block(env, morph0, context, "if", [get(env, context, "controller.hasHeader")], {}, child0, null);
-      inline(env, morph1, context, "view", [get(env, context, "Ember.Table.BodyTableContainer")], {});
+      inline(env, morph1, context, "view", ["Ember.Table.BodyTableContainer"], {});
       block(env, morph2, context, "if", [get(env, context, "controller.hasFooter")], {}, child1, null);
-      inline(env, morph3, context, "view", [get(env, context, "Ember.Table.ScrollContainer")], {});
-      inline(env, morph4, context, "view", [get(env, context, "Ember.Table.ColumnSortableIndicator")], {});
+      inline(env, morph3, context, "view", ["Ember.Table.ScrollContainer"], {});
+      inline(env, morph4, context, "view", ["Ember.Table.ColumnSortableIndicator"], {});
       return fragment;
     }
   };
@@ -310,7 +310,7 @@ Ember.TEMPLATES["footer-container"] = Ember.HTMLBars.template((function() {
           fragment = this.build(dom);
         }
         var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-        inline(env, morph0, context, "view", [get(env, context, "Ember.Table.TableBlock")], {"classNames": "ember-table-left-table-block", "contentBinding": "controller.footerContent", "columnsBinding": "controller.fixedColumns", "widthBinding": "controller._fixedBlockWidth", "heightBinding": "controller.footerHeight"});
+        inline(env, morph0, context, "view", [get(env, context, "Ember.Table.TableBlock")], {"classNames": "ember-table-left-table-block", "content": get(env, context, "footerContent"), "columns": get(env, context, "fixedColumns"), "width": get(env, context, "_fixedBlockWidth"), "height": get(env, context, "footerHeight")});
         return fragment;
       }
     };
@@ -364,7 +364,7 @@ Ember.TEMPLATES["footer-container"] = Ember.HTMLBars.template((function() {
       var morph0 = dom.createMorphAt(element0,1,1);
       var morph1 = dom.createMorphAt(element0,3,3);
       block(env, morph0, context, "if", [get(env, context, "controller.numFixedColumns")], {}, child0, null);
-      inline(env, morph1, context, "view", [get(env, context, "Ember.Table.TableBlock")], {"classNames": "ember-table-right-table-block", "contentBinding": "controller.footerContent", "columnsBinding": "controller.tableColumns", "scrollLeftBinding": "controller._tableScrollLeft", "widthBinding": "controller._tableBlockWidth", "heightBinding": "controller.footerHeight"});
+      inline(env, morph1, context, "view", [get(env, context, "Ember.Table.TableBlock")], {"classNames": "ember-table-right-table-block", "content": get(env, context, "footerContent"), "columns": get(env, context, "tableColumns"), "scrollLeft": get(env, context, "_tableScrollLeft"), "width": get(env, context, "_tableBlockWidth"), "height": get(env, context, "footerHeight")});
       return fragment;
     }
   };
@@ -465,7 +465,7 @@ Ember.TEMPLATES["header-container"] = Ember.HTMLBars.template((function() {
           fragment = this.build(dom);
         }
         var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-        inline(env, morph0, context, "view", [get(env, context, "Ember.Table.HeaderBlock")], {"classNames": "ember-table-left-table-block", "columnsBinding": "controller.fixedColumns", "widthBinding": "controller._fixedBlockWidth", "heightBinding": "controller.headerHeight"});
+        inline(env, morph0, context, "view", [get(env, context, "Ember.Table.HeaderBlock")], {"classNames": "ember-table-left-table-block", "columns": get(env, context, "fixedColumns"), "width": get(env, context, "_fixedBlockWidth"), "height": get(env, context, "headerHeight")});
         return fragment;
       }
     };
@@ -519,7 +519,7 @@ Ember.TEMPLATES["header-container"] = Ember.HTMLBars.template((function() {
       var morph0 = dom.createMorphAt(element0,1,1);
       var morph1 = dom.createMorphAt(element0,3,3);
       block(env, morph0, context, "if", [get(env, context, "controller.numFixedColumns")], {}, child0, null);
-      inline(env, morph1, context, "view", [get(env, context, "Ember.Table.HeaderBlock")], {"classNames": "ember-table-right-table-block", "columnsBinding": "controller.tableColumns", "scrollLeftBinding": "controller._tableScrollLeft", "widthBinding": "controller._tableBlockWidth", "heightBinding": "controller.headerHeight"});
+      inline(env, morph1, context, "view", [get(env, context, "Ember.Table.HeaderBlock")], {"classNames": "ember-table-right-table-block", "columns": get(env, context, "tableColumns"), "scrollLeft": get(env, context, "_tableScrollLeft"), "width": get(env, context, "_tableBlockWidth"), "height": get(env, context, "headerHeight")});
       return fragment;
     }
   };
@@ -562,7 +562,7 @@ Ember.TEMPLATES["header-row"] = Ember.HTMLBars.template((function() {
       }
       var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
       dom.insertBoundary(fragment, 0);
-      inline(env, morph0, context, "view", [get(env, context, "Ember.MultiItemViewCollectionView")], {"contentBinding": "view.content", "itemViewClassField": "headerCellViewClass", "widthBinding": "controller._tableColumnsWidth"});
+      inline(env, morph0, context, "view", [get(env, context, "Ember.MultiItemViewCollectionView")], {"content": get(env, context, "view.content"), "itemViewClassField": "headerCellViewClass", "width": get(env, context, "_tableColumnsWidth")});
       return fragment;
     }
   };
@@ -708,7 +708,7 @@ Ember.TEMPLATES["table-row"] = Ember.HTMLBars.template((function() {
       }
       var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
       dom.insertBoundary(fragment, 0);
-      inline(env, morph0, context, "view", [get(env, context, "Ember.MultiItemViewCollectionView")], {"rowBinding": "view.row", "contentBinding": "view.columns", "itemViewClassField": "tableCellViewClass", "widthBinding": "controller._tableColumnsWidth"});
+      inline(env, morph0, context, "view", [get(env, context, "Ember.MultiItemViewCollectionView")], {"row": get(env, context, "view.row"), "content": get(env, context, "columns"), "itemViewClassField": "tableCellViewClass", "width": get(env, context, "_tableColumnsWidth")});
       return fragment;
     }
   };
