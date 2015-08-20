@@ -41,7 +41,7 @@ Ember.AddeparMixins.StyleBindingsMixin = Ember.Mixin.create({
       });
       styleString = styleTokens.join('');
       if (styleString.length !== 0) {
-        return styleString;
+        return new Ember.Handlebars.SafeString(styleString);
       }
     });
     styleComputed.property.apply(styleComputed, properties);
